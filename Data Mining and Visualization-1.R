@@ -140,8 +140,8 @@ average_stats$overall <- rowMeans(average_stats[, -1])
 ggplot(average_stats, aes(x = reorder(type1, -overall), y = overall, fill = type1)) +
   geom_bar(stat = "identity") +
   geom_text(aes(label = round(overall, 2)), vjust = -0.5, size = 3) +  # Add text annotations
-  labs(title = "Overall Strength of Pokémon Types",
-       x = "Pokémon Types",
+  labs(title = "Overall Strength of PokÃ©mon Types",
+       x = "PokÃ©mon Types",
        y = "Overall Average Base Stats") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
@@ -152,16 +152,16 @@ ggplot(average_stats, aes(x = reorder(type1, -overall), y = overall, fill = type
 ggplot(data1, aes(x = as.factor(generation))) +
   geom_bar(fill = 'skyblue', color = 'black', stat = 'count', show.legend = FALSE) +
   geom_text(stat = 'count', aes(label = ..count..), vjust = -0.5, size = 3) +  # Add text annotations
-  labs(title = 'Number of New Pokémon per Generation',
+  labs(title = 'Number of New PokÃ©mon per Generation',
        x = 'Generation',
-       y = 'Number of Pokémon') +
+       y = 'Number of PokÃ©mon') +
   theme_minimal()
 
 # Create a bar chart for the count of each primary type
 ggplot(data1, aes(x = type1, fill = type1)) +
   geom_bar() +
   geom_text(stat = 'count', aes(label = ..count..), vjust = -0.5, size = 3) +  # Add text annotations
-  labs(title = 'Distribution of Pokémon Primary Types',
+  labs(title = 'Distribution of PokÃ©mon Primary Types',
        x = 'Primary Type',
        y = 'Count') +
   theme_minimal() +
@@ -172,7 +172,7 @@ ggplot(data1, aes(x = type1, fill = type1)) +
 ggplot(data1, aes(x = type2, fill = type2)) +
   geom_bar() +
   geom_text(stat = 'count', aes(label = ..count..), vjust = -0.5, size = 3) +  # Add text annotations
-  labs(title = 'Distribution of Pokémon Secondary Types',
+  labs(title = 'Distribution of PokÃ©mon Secondary Types',
        x = 'Secondary Type',
        y = 'Count') +
   theme_minimal() +
@@ -195,19 +195,19 @@ top_10_combinations <- head(type_combinations_df, 10)
 ggplot(top_10_combinations, aes(x = interaction(Type1, Type2, lex.order = TRUE), y = Count, fill = interaction(Type1, Type2, lex.order = TRUE))) +
   geom_bar(stat = "identity") +
   geom_text(aes(label = Count), vjust = -0.5, size = 3) +  # Add text annotations
-  labs(title = 'Top 10 Most Common Pokémon Type Combinations',
+  labs(title = 'Top 10 Most Common PokÃ©mon Type Combinations',
        x = 'Type Combinations',
        y = 'Count') +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-# Filter the dataset to include only legendary Pokémon
+# Filter the dataset to include only legendary PokÃ©mon
 legendary_df <- subset(data1, is_legendary == 1)
-# Create a bar chart of the types of legendary Pokémon
+# Create a bar chart of the types of legendary PokÃ©mon
 ggplot(legendary_df, aes(x = type1, fill = type1)) +
   geom_bar() +
   geom_text(stat = 'count', aes(label = ..count..), vjust = -0.5, size = 3) +  # Add text annotations
-  labs(title = 'Distribution of Legendary Pokémon Types',
+  labs(title = 'Distribution of Legendary PokÃ©mon Types',
        x = 'Type',
        y = 'Count') +
   theme_minimal() +
@@ -236,7 +236,7 @@ ggplot(count_df, aes(x = Generation, y = Type, fill = Count)) +
 ggplot(data1, aes(x = as.factor(generation), y = as.numeric(capture_rate), fill = factor(is_legendary))) +
   geom_boxplot(alpha = 0.7) +
   geom_text(aes(label = capture_rate), position = position_dodge(0.8), vjust = -0.5, size = 3) +
-  labs(title = 'Pokémon Capture Rate by Generation',
+  labs(title = 'PokÃ©mon Capture Rate by Generation',
        x = 'Generation',
        y = 'Capture Rate',
        fill = 'Legendary') +
@@ -245,12 +245,12 @@ ggplot(data1, aes(x = as.factor(generation), y = as.numeric(capture_rate), fill 
   scale_fill_manual(values = c("0" = "skyblue", "1" = "darkred")) +
   guides(fill = guide_legend(title = "Legendary", keywidth = 1, keyheight = 1, reverse = TRUE))
 
-# Create a boxplot of capture rates across Pokémon types, grouped by legendary status
+# Create a boxplot of capture rates across PokÃ©mon types, grouped by legendary status
 ggplot(data1, aes(x = type1, y = as.numeric(capture_rate), fill = factor(is_legendary))) +
   geom_boxplot(position = position_dodge(0.8), alpha = 0.7) +
   geom_text(aes(label = capture_rate), position = position_dodge(0.8), vjust = -0.5, size = 3) +
-  labs(title = 'Capture Rates Across Pokémon Types',
-       x = 'Pokémon Type',
+  labs(title = 'Capture Rates Across PokÃ©mon Types',
+       x = 'PokÃ©mon Type',
        y = 'Capture Rate',
        fill = 'Legendary') +
   theme_minimal() +
@@ -260,7 +260,7 @@ ggplot(data1, aes(x = type1, y = as.numeric(capture_rate), fill = factor(is_lege
 data1_split <- data1 %>%
   separate_rows(abilities, sep = ', ') %>%
   filter(abilities != "")  # Remove empty abilities
-# Count occurrences of each unique number of abilities for each Pokémon
+# Count occurrences of each unique number of abilities for each PokÃ©mon
 pokemon_ability_counts <- data1_split %>%
   group_by(name, is_legendary) %>%
   summarize(ability_count = n_distinct(abilities))
@@ -268,7 +268,7 @@ pokemon_ability_counts <- data1_split %>%
 ggplot(pokemon_ability_counts, aes(x = as.factor(ability_count), fill = factor(is_legendary))) +
   geom_bar(stat = "count", position = "dodge", color = "black") +
   geom_text(stat = "count", aes(label = ..count..), position = position_dodge(width = 0.9), vjust = -0.5) +
-  labs(title = 'Number of Abilities per Pokémon',
+  labs(title = 'Number of Abilities per PokÃ©mon',
        x = 'Number of Abilities',
        y = 'Count',
        fill = 'Legendary') +
@@ -276,16 +276,16 @@ ggplot(pokemon_ability_counts, aes(x = as.factor(ability_count), fill = factor(i
   scale_fill_manual(values = c("0" = "skyblue", "1" = "darkred")) +
   guides(fill = guide_legend(title = "Legendary", keywidth = 1, keyheight = 1, reverse = TRUE))
 
-# Identify the top 5 highest and weightiest Pokémon
+# Identify the top 5 highest and weightiest PokÃ©mon
 top_5_highest <- data1[order(-data1$height_m), ][1:5, ]
 top_5_weightiest <- data1[order(-data1$weight_kg), ][1:5, ]
-# Identify unique Pokémon from the top 5 lists
+# Identify unique PokÃ©mon from the top 5 lists
 unique_top_pokemon <- unique(rbind(top_5_highest, top_5_weightiest), by = "name")
 # Create a scatterplot with white borders
 ggplot(data1, aes(x = weight_kg, y = height_m, color = factor(is_legendary))) +
   geom_point(size = 3, stroke = 1, aes(shape = factor(is_legendary))) +  # Add white border
   geom_text_repel(data = unique_top_pokemon, aes(label = name), size = 3, box.padding = 0.5, point.padding = 0.5) +
-  labs(title = 'Top 5 Highest and Weightiest Pokémon',
+  labs(title = 'Top 5 Highest and Weightiest PokÃ©mon',
        x = 'Weight (kg)',
        y = 'Height (m)',
        color = 'Legendary') +
@@ -294,10 +294,10 @@ ggplot(data1, aes(x = weight_kg, y = height_m, color = factor(is_legendary))) +
   scale_shape_manual(values = c("0" = 16, "1" = 17)) +  # Define shapes for non-legendary (16) and legendary (17)
   guides(color = guide_legend(title = "Legendary"))
 
-# Create a boxplot for Pokémon Base Total by Generation
+# Create a boxplot for PokÃ©mon Base Total by Generation
 ggplot(data1, aes(x = factor(generation), y = base_total, fill = factor(is_legendary))) +
   geom_boxplot(outlier.shape = NA) +  # Remove outliers for clarity
-  labs(title = 'Pokémon Base Total by Generation',
+  labs(title = 'PokÃ©mon Base Total by Generation',
        x = 'Generation',
        y = 'Base Total',
        fill = 'Legendary') +
@@ -324,14 +324,14 @@ ggplot(type_effectiveness_data_long, aes(x = type1, y = type, fill = effectivene
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-# Find the top 10 most powerful Pokémon
+# Find the top 10 most powerful PokÃ©mon
 top_10_pokemon <- data1[order(-data1$base_total), ][1:10, ]
 
-# Create a bar plot to display the top 10 most powerful Pokémon
+# Create a bar plot to display the top 10 most powerful PokÃ©mon
 ggplot(top_10_pokemon, aes(x = reorder(name, -base_total), y = base_total, fill = factor(is_legendary))) +
   geom_bar(stat = 'identity') +
-  labs(title = 'Top 10 Most Powerful Pokémon',
-       x = 'Pokémon',
+  labs(title = 'Top 10 Most Powerful PokÃ©mon',
+       x = 'PokÃ©mon',
        y = 'Base Total',
        fill = 'Legendary') +
   theme_minimal() +
